@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require 'db.php';
+require '../db.php'; // Go up one level to root
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -9,7 +9,7 @@ if (!$username || !$password) {
     sendResponse(false, "All fields are required");
 }
 
-// Check if user exists
+// Check MySQL for existing user
 $stmt = $mysql->prepare("SELECT id FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
